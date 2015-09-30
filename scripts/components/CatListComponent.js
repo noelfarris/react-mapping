@@ -3,6 +3,11 @@ var CatComponent = require('./CatComponent');
 
 module.exports = React.createClass({
 	render: function() {
+		var catList = this.props.cats.map(function(cat) {
+			return(
+				<CatComponent cat={cat} />
+				);
+		});
 		return (
 			<div className="row">
 				<h1>Cats</h1>
@@ -15,6 +20,7 @@ module.exports = React.createClass({
 						</tr>
 					</thead>
 					<tbody>
+					{catList}
 					</tbody>
 				</table>
 			</div>

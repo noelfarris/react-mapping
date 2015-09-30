@@ -3480,9 +3480,7 @@ function drainQueue() {
         currentQueue = queue;
         queue = [];
         while (++queueIndex < len) {
-            if (currentQueue) {
-                currentQueue[queueIndex].run();
-            }
+            currentQueue[queueIndex].run();
         }
         queueIndex = -1;
         len = queue.length;
@@ -3534,6 +3532,7 @@ process.binding = function (name) {
     throw new Error('process.binding is not supported');
 };
 
+// TODO(shtylman)
 process.cwd = function () { return '/' };
 process.chdir = function (dir) {
     throw new Error('process.chdir is not supported');
@@ -32614,6 +32613,9 @@ module.exports = React.createClass({
 	displayName: 'exports',
 
 	render: function render() {
+		var catList = this.props.cats.map(function (cat) {
+			return React.createElement(CatComponent, { cat: cat });
+		});
 		return React.createElement(
 			'div',
 			{ className: 'row' },
@@ -32648,7 +32650,11 @@ module.exports = React.createClass({
 						)
 					)
 				),
-				React.createElement('tbody', null)
+				React.createElement(
+					'tbody',
+					null,
+					catList
+				)
 			)
 		);
 	}
@@ -32701,6 +32707,9 @@ module.exports = React.createClass({
 	displayName: 'exports',
 
 	render: function render() {
+		var productList = this.props.products.map(function (product) {
+			return React.createElement(ProductComponent, { product: product });
+		});
 		return React.createElement(
 			'div',
 			{ className: 'row' },
@@ -32740,7 +32749,11 @@ module.exports = React.createClass({
 						)
 					)
 				),
-				React.createElement('tbody', null)
+				React.createElement(
+					'tbody',
+					null,
+					productList
+				)
 			)
 		);
 	}
@@ -32761,42 +32774,42 @@ module.exports = React.createClass({
 			React.createElement(
 				'td',
 				null,
-				'-'
+				this.props.quarterback.get('name')
 			),
 			React.createElement(
 				'td',
 				null,
-				'-'
+				this.props.quarterback.get('team')
 			),
 			React.createElement(
 				'td',
 				null,
-				'-'
+				this.props.quarterback.get('completions')
 			),
 			React.createElement(
 				'td',
 				null,
-				'-'
+				this.props.quarterback.get('attempts')
 			),
 			React.createElement(
 				'td',
 				null,
-				'-'
+				this.props.quarterback.get('yards')
 			),
 			React.createElement(
 				'td',
 				null,
-				'-'
+				this.props.quarterback.get('touchdowns')
 			),
 			React.createElement(
 				'td',
 				null,
-				'-'
+				this.props.quarterback.get('interceptions')
 			),
 			React.createElement(
 				'td',
 				null,
-				'-'
+				this.props.quarterback.get('sacks')
 			)
 		);
 	}
@@ -32812,6 +32825,9 @@ module.exports = React.createClass({
 	displayName: 'exports',
 
 	render: function render() {
+		var quarterbackList = this.props.quarterbacks.map(function (quarterback) {
+			return React.createElement(QuarterbackComponent, { quarterback: quarterback });
+		});
 		return React.createElement(
 			'div',
 			{ className: 'row' },
@@ -32871,7 +32887,11 @@ module.exports = React.createClass({
 						)
 					)
 				),
-				React.createElement('tbody', null)
+				React.createElement(
+					'tbody',
+					null,
+					quarterbackList
+				)
 			)
 		);
 	}
@@ -32885,7 +32905,22 @@ var React = require('react');
 module.exports = React.createClass({
 	displayName: 'exports',
 
-	render: function render() {}
+	render: function render() {
+		return React.createElement(
+			'tr',
+			null,
+			React.createElement(
+				'td',
+				null,
+				this.props.todo.get('description')
+			),
+			React.createElement(
+				'td',
+				null,
+				this.props.todo.get('completed')
+			)
+		);
+	}
 });
 
 },{"react":159}],171:[function(require,module,exports){
@@ -32898,6 +32933,9 @@ module.exports = React.createClass({
 	displayName: 'exports',
 
 	render: function render() {
+		var todoList = this.props.todos.map(function (todo) {
+			return React.createElement(TodoComponent, { todo: todo });
+		});
 		return React.createElement(
 			'div',
 			{ className: 'row' },
@@ -32905,6 +32943,33 @@ module.exports = React.createClass({
 				'h1',
 				null,
 				'Todos'
+			),
+			React.createElement(
+				'table',
+				{ className: 'table' },
+				React.createElement(
+					'thread',
+					null,
+					React.createElement(
+						'tr',
+						null,
+						React.createElement(
+							'th',
+							null,
+							'Description'
+						),
+						React.createElement(
+							'th',
+							null,
+							'Completed'
+						)
+					)
+				),
+				React.createElement(
+					'tbody',
+					null,
+					todoList
+				)
 			)
 		);
 	}
